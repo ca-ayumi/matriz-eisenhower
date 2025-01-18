@@ -130,18 +130,29 @@
       color: #4a6fa5;
     }
     .remove-btn {
-      background-color: #ff4d4d;
-      color: white;
+      font-size: 1.2rem;
+      color: #ff4d4d;
       border: none;
-      border-radius: 8px;
-      padding: 10px 15px;
-      font-size: 1rem;
+      background: none;
       cursor: pointer;
-      transition: all 0.3s;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease, color 0.2s ease;
     }
     .remove-btn:hover {
-      background-color: #d93636;
+      transform: scale(1.2);
+      color: #d93636;
+    }
+    .checkbox-completed {
+      cursor: pointer;
+    }
+    .row-completed {
+      opacity: 0.5;
+    }
+    .row-completed * {
+      pointer-events: none;
+    }
+    .row-completed .checkbox-completed {
+      pointer-events: auto;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -157,6 +168,7 @@
           <th>Tarefa</th>
           <th>Prioridade</th>
           <th>Tags</th>
+          <th>Concluído</th>
           <th>Ação</th>
         </tr>
       </thead>
@@ -236,9 +248,19 @@
 
           tagsCell.appendChild(dropdownContainer);
 
+          const checkboxCell = document.createElement("td");
+          const checkbox = document.createElement("input");
+          checkbox.type = "checkbox";
+          checkbox.classList.add("checkbox-completed");
+          checkbox.addEventListener("change", () => {
+            row.classList.toggle("row-completed", checkbox.checked);
+            reorderTasks();
+          });
+          checkboxCell.appendChild(checkbox);
+
           const actionCell = document.createElement("td");
           const removeButton = document.createElement("button");
-          removeButton.textContent = "Remover";
+          removeButton.textContent = "×";
           removeButton.classList.add("remove-btn");
           removeButton.addEventListener("click", function () {
             row.remove();
@@ -249,6 +271,7 @@
           row.appendChild(taskCell);
           row.appendChild(priorityCell);
           row.appendChild(tagsCell);
+          row.appendChild(checkboxCell);
           row.appendChild(actionCell);
 
           taskList.appendChild(row);
@@ -265,6 +288,12 @@
       const rows = Array.from(taskList.children);
 
       rows.sort((a, b) => {
+        const isCompletedA = a.querySelector(".checkbox-completed").checked;
+        const isCompletedB = b.querySelector(".checkbox-completed").checked;
+
+        if (isCompletedA && !isCompletedB) return 1;
+        if (!isCompletedA && isCompletedB) return -1;
+
         const priorityA = a.querySelector(".priority-text").textContent.trim();
         const priorityB = b.querySelector(".priority-text").textContent.trim();
 
