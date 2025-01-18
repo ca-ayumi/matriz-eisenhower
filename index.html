@@ -68,7 +68,13 @@
 
     .task-table td {
       border-bottom: 1px solid #ececec;
-      color: #191919;
+      color: #b3b3b3; /* Texto claro */
+    }
+
+    .priority-text {
+      font-size: 1rem;
+      font-weight: bold;
+      color: #b3b3b3; /* Ajusta a prioridade para #ececec */
     }
 
     .dropdown-container {
@@ -139,12 +145,6 @@
       font-weight: bold;
     }
 
-    .priority-text {
-      font-size: 1rem;
-      font-weight: bold;
-      color: #4b6fa5; /* Azul */
-    }
-
     .remove-btn {
       font-size: 1.2rem;
       color: #b0b0b0;
@@ -175,45 +175,6 @@
     .row-completed .checkbox-completed {
       pointer-events: auto;
       cursor: pointer;
-    }
-
-    /* Estilo para dark mode */
-    @media (prefers-color-scheme: dark) {
-      .input-container input {
-        background-color: #2c3e50; /* Fundo escuro */
-        color: #ececec; /* Texto claro */
-        border: 1px solid #4b6fa5; /* Azul */
-      }
-
-      .task-table th {
-        background-color: #2c3e50; /* Fundo escuro */
-        color: #ececec; /* Texto claro */
-        border-bottom: 2px solid #4b6fa5;
-      }
-
-      .task-table td {
-        color: #ececec; /* Texto claro */
-        border-bottom: 1px solid #4b6fa5;
-      }
-
-      .dropdown-button {
-        background-color: #2c3e50; /* Fundo escuro */
-        color: #ececec; /* Texto claro */
-      }
-
-      .dropdown-options {
-        background-color: #2c3e50; /* Fundo escuro */
-        color: #ececec; /* Texto claro */
-      }
-
-      .dropdown-option:hover {
-        background-color: #4b6fa5; /* Azul */
-        color: #ffffff; /* Texto branco */
-      }
-
-      .row-completed {
-        background-color: #4b6fa5; /* Fundo azul */
-      }
     }
   </style>
 </head>
